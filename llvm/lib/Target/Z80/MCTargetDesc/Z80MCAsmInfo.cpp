@@ -34,8 +34,8 @@ Z80MCAsmInfoELF::Z80MCAsmInfoELF(const Triple &T) {
   SeparatorString = nullptr;
   CommentString = ";";
   PrivateGlobalPrefix = PrivateLabelPrefix = "";
-  Code16Directive = "assume\tadl = 0";
-  Code24Directive = "assume\tadl = 1";
+  Code16Directive = ".assume\tadl = 0";
+  Code24Directive = ".assume\tadl = 1";
   Code32Directive = Code64Directive = nullptr;
   AssemblerDialect = !Is16Bit;
   SupportsQuotedNames = false;
@@ -57,21 +57,21 @@ Z80MCAsmInfoELF::Z80MCAsmInfoELF(const Triple &T) {
   SectionDirective = "\tsection\t";
   AlwaysChangeSection = true;
   GlobalDirective = "\tpublic\t";
-  LGloblDirective = "\tprivate\t";
+  LGloblDirective = "\t;private\t";
   SetDirective = "\tlabel\t";
   SetSeparator = " at ";
   HasFunctionAlignment = false;
   HasDotTypeDotSizeDirective = false;
-  IdentDirective = "\tident\t";
+  IdentDirective = "\t;ident\t";
   WeakDirective = "\tweak\t";
   UseIntegratedAssembler = false;
   UseLogicalShr = false;
   HasSingleParameterDotFile = false;
   SupportsDebugInformation = SupportsCFI = true;
   ExceptionsType = ExceptionHandling::SjLj;
-  DwarfFileDirective = "\tfile\t";
-  DwarfLocDirective = "\tloc\t";
-  DwarfCFIDirectivePrefix = "\tcfi_";
+  DwarfFileDirective = "\t;file\t";
+  DwarfLocDirective = "\t;loc\t";
+  DwarfCFIDirectivePrefix = "\t;cfi_";
 }
 
 MCSection *Z80MCAsmInfoELF::getNonexecutableStackSection(MCContext &Ctx) const {

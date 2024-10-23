@@ -41,7 +41,7 @@ void Z80TargetAsmStreamer::emitBlock(uint64_t NumBytes) {
 }
 
 void Z80TargetAsmStreamer::emitLocal(MCSymbol *Symbol) {
-  OS << "\tprivate\t";
+  OS << "\t;private\t";
   Symbol->print(OS, MAI);
   OS << '\n';
 }

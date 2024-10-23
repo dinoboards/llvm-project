@@ -83,7 +83,7 @@ void MCSectionELF::printSwitchToSection(const MCAsmInfo &MAI, const Triple &T,
     return;
   }
 
-  OS << ",\"";
+  OS << "; ,\"";
   if (Flags & ELF::SHF_ALLOC)
     OS << 'a';
   if (Flags & ELF::SHF_EXCLUDE)
