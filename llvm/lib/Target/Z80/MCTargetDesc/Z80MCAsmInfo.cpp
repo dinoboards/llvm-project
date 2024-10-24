@@ -34,13 +34,13 @@ Z80MCAsmInfoELF::Z80MCAsmInfoELF(const Triple &T) {
   SeparatorString = nullptr;
   CommentString = ";";
   PrivateGlobalPrefix = PrivateLabelPrefix = "";
-  Code16Directive = "assume\tadl = 0";
-  Code24Directive = "assume\tadl = 1";
+  Code16Directive = ".assume\tadl = 0";
+  Code24Directive = ".assume\tadl = 1";
   Code32Directive = Code64Directive = nullptr;
   AssemblerDialect = !Is16Bit;
   SupportsQuotedNames = false;
-  ZeroDirective = AscizDirective = nullptr;
-  BlockSeparator = " dup ";
+  ZeroDirective = "\tds\t";
+  AscizDirective = nullptr;
   AsciiDirective = ByteListDirective = Data8bitsDirective = "\tdb\t";
   NumberLiteralSyntax = ANLS_PlainDecimal;
   CharacterLiteralSyntax = ACLS_SingleQuotes;
@@ -49,20 +49,20 @@ Z80MCAsmInfoELF::Z80MCAsmInfoELF(const Triple &T) {
   StringConstantsEscapeNonPrint = EscapeNonPrint;
   StringConstantsRequiredEscapes = {"\n\r\32", 4}; // include null
   Data16bitsDirective = "\tdw\t";
-  Data24bitsDirective = "\tdl\t";
-  Data32bitsDirective = "\tdd\t";
-  Data64bitsDirective = "\tdq\t";
-  DataULEB128Directive = "\tuleb128\t";
-  DataSLEB128Directive = "\tsleb128\t";
+  Data24bitsDirective = "\td24\t";
+  Data32bitsDirective = "\td32\t";
+  Data64bitsDirective = nullptr;
+  DataULEB128Directive = "\t.uleb128\t";
+  DataSLEB128Directive = "\t.sleb128\t";
   SectionDirective = "\tsection\t";
   AlwaysChangeSection = true;
-  GlobalDirective = "\tpublic\t";
-  LGloblDirective = "\tprivate\t";
+  GlobalDirective = "\t.global\t";
+  LGloblDirective = "\t.local\t";
   SetDirective = "\tlabel\t";
   SetSeparator = " at ";
   HasFunctionAlignment = false;
   HasDotTypeDotSizeDirective = false;
-  IdentDirective = "\tident\t";
+  IdentDirective = "\t;ident\t";
   WeakDirective = "\tweak\t";
   UseIntegratedAssembler = false;
   UseLogicalShr = false;
@@ -79,7 +79,7 @@ MCSection *Z80MCAsmInfoELF::getNonexecutableStackSection(MCContext &Ctx) const {
 }
 
 bool Z80MCAsmInfoELF::isAcceptableChar(char C) const {
-  return MCAsmInfo::isAcceptableChar(C) || C == '%' || C == '^';
+  return MCAsmInfo::isAcceptableChar(C);// || C == '%' || C == '^';
 }
 
 bool Z80MCAsmInfoELF::shouldOmitSectionDirective(StringRef SectionName) const {
@@ -89,10 +89,10 @@ bool Z80MCAsmInfoELF::shouldOmitSectionDirective(StringRef SectionName) const {
 const char *Z80MCAsmInfoELF::getBlockDirective(int64_t Size) const {
   switch (Size) {
   default: return nullptr;
-  case 1: return "\tdb\t";
-  case 2: return "\tdw\t";
-  case 3: return "\tdl\t";
-  case 4: return "\tdd\t";
+  case 1: return Data8bitsDirective;
+  case 2: return Data16bitsDirective;
+  case 3: return Data24bitsDirective;
+  case 4: return Data32bitsDirective;
   }
 }
 
