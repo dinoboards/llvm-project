@@ -44,10 +44,10 @@ Z80MCAsmInfoELF::Z80MCAsmInfoELF(const Triple &T) {
   AsciiDirective = ByteListDirective = Data8bitsDirective = "\tdb\t";
   NumberLiteralSyntax = ANLS_PlainDecimal;
   CharacterLiteralSyntax = ACLS_SingleQuotes;
-  HasPairedDoubleQuoteStringConstants = true;
+  HasPairedDoubleQuoteStringConstants = false;
   HasBackslashEscapesInStringConstants = false;
   StringConstantsEscapeNonPrint = EscapeNonPrint;
-  StringConstantsRequiredEscapes = {"\n\r\32", 4}; // include null
+  StringConstantsRequiredEscapes = {"\\\"\n\r\32", 6}; // include null
   Data16bitsDirective = "\tdw\t";
   Data24bitsDirective = "\td24\t";
   Data32bitsDirective = "\td32\t";
