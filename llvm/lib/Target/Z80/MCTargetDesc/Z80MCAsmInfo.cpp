@@ -58,8 +58,8 @@ Z80MCAsmInfoELF::Z80MCAsmInfoELF(const Triple &T) {
   AlwaysChangeSection = true;
   GlobalDirective = "\t.global\t";
   LGloblDirective = "\t.local\t";
-  SetDirective = "\tlabel\t";
-  SetSeparator = " at ";
+  // SetDirective = "\tlabel\t";
+  // SetSeparator = " at ";
   HasFunctionAlignment = false;
   HasDotTypeDotSizeDirective = false;
   IdentDirective = "\t;ident\t";
