@@ -60,7 +60,7 @@ Z80MCAsmInfoELF::Z80MCAsmInfoELF(const Triple &T) {
   LGloblDirective = "\t.local\t";
   // SetDirective = "\tlabel\t";
   // SetSeparator = " at ";
-  HasFunctionAlignment = false;
+  // HasFunctionAlignment = false;
   HasDotTypeDotSizeDirective = false;
   IdentDirective = "\t;ident\t";
   WeakDirective = "\tweak\t";
